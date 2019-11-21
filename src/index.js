@@ -21,9 +21,18 @@ io.on('connection', (socket) => {
 
     socket.emit("WelcomingMessage",WelcomingMessage)
 
+    socket.broadcast.emit('Message','New User Joined')//Emitting a Broadcast 
+
     socket.on("SendMessageForSever", (input) => { //Listen for a message from Client
         console.log(input)
     })
+
+socket.on('disconnect', () => {
+    //console.log("")
+    io.emit('Message','user is out ')//io Directly not Socket becacuse User is being disconnected
+
+} )
+
 })
 
 server.listen(port, () => {

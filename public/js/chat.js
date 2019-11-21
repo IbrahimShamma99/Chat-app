@@ -13,3 +13,7 @@ document.querySelector("#SendMessageForSever").addEventListener("submit",(pp) =>
     socket.emit("SendMessageForSever",messageFromClient) //Open back Socket From Client to Server To transfer Data
 })
 
+
+socket.on("Message", (p) =>{
+    console.log(p)
+})
