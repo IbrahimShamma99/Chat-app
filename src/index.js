@@ -25,6 +25,7 @@ io.on('connection', (socket) => {
     socket.on("SendMessageForSever", (input,callback) => { //Listen for a message from Client
         console.log(input)
         callback()
+        socket.broadcast.emit("BroadCast Message",input)
     })
 
     socket.on("Broadcast Location", (position) => {

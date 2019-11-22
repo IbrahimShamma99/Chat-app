@@ -18,6 +18,10 @@ document.querySelector("#SendMessageForSever").addEventListener("submit",(pp) =>
     }) //Open back Socket From Client to Server To transfer Data
 })
 
+socket.on("BroadCast Message",(input) =>{
+    console.log(input)
+})
+
 socket.on("Message", (p) =>{
     console.log(p)
 })
@@ -27,6 +31,10 @@ document.querySelector("#send-location").addEventListener('click', () =>{
         return alert("Please Provide Location")
     }
 
+    socket.on("Broadcast Location With Users", (p) =>{
+        console.log(p)
+    })
+
     navigator.geolocation.getCurrentPosition((position)=>{
         console.log(position.coords.longitude)
         socket.emit("Broadcast Location",{'latitude':position.coords.latitude,
@@ -34,9 +42,7 @@ document.querySelector("#send-location").addEventListener('click', () =>{
 
     })
    
-    socket.on("Broadcast Location With Users", (p) =>{
-        console.log(p)
-    })
+    
     
         
 
