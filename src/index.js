@@ -18,13 +18,20 @@ const WelcomingMessage = "Welcome !"
 io.on('connection', (socket) => {
     console.log('New WebSocket connection')
 
-
     socket.emit("WelcomingMessage",WelcomingMessage)
 
     socket.broadcast.emit('Message','New User Joined')//Emitting a Broadcast 
 
-    socket.on("SendMessageForSever", (input) => { //Listen for a message from Client
+    socket.on("SendMessageForSever", (input,callback) => { //Listen for a message from Client
         console.log(input)
+        callback()
+    })
+
+    socket.on("Broadcast Location", (position) => {
+        console.log(position)
+        socket.broadcast.emit("Broadcast Location With Users",{'latitude':position.latitude,
+        'longitude':position.longitude
+    })
     })
 
 socket.on('disconnect', () => {
