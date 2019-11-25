@@ -1,63 +1,76 @@
 const socket = io()
 
-//Element 
-const $MessageForm = document.querySelector("#SendMessageForSever")
-const $Message = document.querySelector("input")
-const $MessageFormButton = document.querySelector("button")
-const $SendLocation = document.querySelector("#send-location")
+// Elements
+const $messageForm = document.querySelector('#message-form')
+const $messageFormInput = $messageForm.querySelector('input')
+const $messageFormButton = $messageForm.querySelector('button')
+const $sendLocationButton = document.querySelector('#send-location')
+const $messages = document.querySelector('#messages')
 
-socket.on("WelcomingMessage",(WelcomingMessage) => {
-    
-    console.log(WelcomingMessage)
-        
+// Templates
+const messageTemplate = document.querySelector('#message-template').innerHTML
+const locationMessageTemplate = document.querySelector('#location-message-template').innerHTML
+
+// Options
+const {username , room} = Qs.parse(location.search,{ignoreQueryPrefix: true})
+
+socket.on('message', (message) => {
+    console.log(message)
+    const html = Mustache.render(messageTemplate, {
+        message: message.text,
+        createdAt: moment(message.createdAt).format('h:mm a')
+    })
+    $messages.insertAdjacentHTML('beforeend', html)
 })
 
-$MessageForm.addEventListener("submit",(pp) => {
-    pp.preventDefault() //for Cancelling Event {No Response}
-
-    $MessageFormButton.setAttribute('disabled','disabled') //Disable Button after it is being Clicked
-
-    const messageFromClient = document.querySelector('input').value //Take The Value from input
-    console.log("Clicked") //To Check if it is clicked
-    
-    socket.emit("SendMessageForSever",messageFromClient,()=> {
-    $MessageFormButton.removeAttribute('disabled')
-    $Message.value = ''
-    $Message.focus()
-    console.log("message was delivered")
-    }) //Open back Socket From Client to Server To transfer Data
+socket.on('locationMessage', (message) => {
+    console.log(message)
+    const html = Mustache.render(locationMessageTemplate, {
+        url: message.url,
+        createdAt: moment(message.createdAt).format('h:mm a')
+    })
+    $messages.insertAdjacentHTML('beforeend', html)
 })
 
-socket.on("BroadCast Message",(input) =>{
-    console.log(input)
+$messageForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    $messageFormButton.setAttribute('disabled', 'disabled')
+
+    const message = e.target.elements.message.value
+
+    socket.emit('sendMessage', message, (error) => {
+        $messageFormButton.removeAttribute('disabled')
+        $messageFormInput.value = ''
+        $messageFormInput.focus()
+
+        if (error) {
+            return console.log(error)
+        }
+
+        console.log('Message delivered!')
+    })
 })
 
-socket.on("Message", (p) =>{
-    console.log(p)
-})
-
-$SendLocation.addEventListener('click', () =>{
-    if (!navigator.geolocation){
-        return alert("Please Provide Location")
+$sendLocationButton.addEventListener('click', () => {
+    if (!navigator.geolocation) {
+        return alert('Geolocation is not supported by your browser.')
     }
-    $SendLocation.setAttribute("disabled",'disabled')
-    console.log("Location has been shared")
 
-    socket.on("Broadcast Location With Users", (p) =>{
-        console.log(p)
+    $sendLocationButton.setAttribute('disabled', 'disabled')
+
+    navigator.geolocation.getCurrentPosition((position) => {
+        socket.emit('sendLocation', {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+        }, () => {
+            $sendLocationButton.removeAttribute('disabled')
+            console.log('Location shared!')  
+        })
     })
+})
 
-    navigator.geolocation.getCurrentPosition((position)=>{
-        console.log(position.coords.longitude)
-        socket.emit("Broadcast Location",{'latitude':position.coords.latitude,
-        'longitude':position.coords.longitude})
-        $SendLocation.removeAttribute('disabled')
-    
-
-    })
-   
-    
-    
-        
-
+socket.emit("join",{
+    username:username,
+    room:room
 })

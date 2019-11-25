@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "test": "env-cmd ./config/test.env jest --watch"
+    "dev": "nodemon src/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bad-words": "^3.0.0",
     "express": "^4.16.4",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.7"
