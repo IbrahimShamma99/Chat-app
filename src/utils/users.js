@@ -2,34 +2,31 @@ const users = []
 
 //AddUser
 
-const AddUser = ({id,username,room}) => {
-    //Clear Data 
+const AddUser = ({ id, username = '', room }) => {
+    // NOTE: Clear Data 
     username = username.trim().toLowerCase()
     room = room.trim().toLowerCase()
 
-    if (!username || !room){
+    if (!username || !room) {
         return {
-            error:'Username and room required'
+            error: 'Username and room required'
         }
     }
-    //TODO : Get rid of possible Duplicates
-    const existedUser = users.find((user)=>{
+    // TODO : Get rid of possible Duplicates
+    const existedUser = users.find((user) => {
         return user.room === room && user.username === username
     })
-    if (existedUser){
+    if (existedUser) {
         return {
-            error:"Username is in use!"
+            error: "Username is in use!"
         }
     }
 
-    //Store 
-    const user = {id,username ,room}
+    // NOTE: Store 
+    const user = { id, username, room }
     users.push(user)
-    
-    return {
-        user
-    }
 
+    return { user };
 }
 
 //RemoveUser
@@ -38,12 +35,14 @@ const RemoveUser = (id) => {
     const index = users.findIndex((user) => user.id === id)
 
     if (index !== -1) {
-        return users.splice(index, 1)[0]
+        user = users.splice(index, 1)[0]
+        return { user }
     }
 }
 
 const GetUser = (id) => {
-    return users.find((user) => user.id === id)
+    user = users.find((user) => user.id === id)
+    return { user }
 }
 
 const GetUsersInRoom = (room) => {
@@ -67,7 +66,7 @@ module.exports = {
 // User_2 = AddUser({id:11,
 //         username:'ibrahimShamma ',
 //         room:'1'})
-    
+
 // console.log("AddUser1: ",User_1)
 // console.log("AddUser2: ",User_2)
 

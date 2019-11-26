@@ -4,6 +4,7 @@ const express = require('express')
 const socketio = require('socket.io')
 const Filter = require('bad-words')
 const { generateMessage, generateLocationMessage } = require('./utils/messages')
+const { GetUser, GetUsersInRoom , RemoveUser , AddUser } = require("./utils/users")
 
 const app = express()
 const server = http.createServer(app)
@@ -17,31 +18,48 @@ app.use(express.static(publicDirectoryPath))
 io.on('connection', (socket) => {
     console.log('New WebSocket connection')
 
-    socket.on('join',({username,room}) =>{
-        socket.join(room)      
-        socket.emit('message', generateMessage('Welcome!'))
-        socket.broadcast.to(room).emit('message', generateMessage(`${username} has entered the room`))
+    socket.on('join', (options, callback) => {
+
+        const { error, user } = AddUser({ id: socket.id, ...options})
+
+        if (error) {
+            return callback(error)
+        }
+
+        socket.join(room)
+        socket.emit('message', generateMessage(user,'Welcome!'))
+        socket.broadcast.to(room).emit('message', generateMessage(user,`${user} has entered the room`))
+
+        callback()
     })
 
     socket.on('sendMessage', (message, callback) => {
+        const user = GetUser(socket.id);   
+        
         const filter = new Filter()
 
         if (filter.isProfane(message)) {
             return callback('Profanity is not allowed!')
         }
 
-        io.to('Amman').emit('message', generateMessage(message))
+        io.to(user.room).emit('message', generateMessage(user,message))
         callback()
     })
 
     socket.on('sendLocation', (coords, callback) => {
-        io.emit('locationMessage', generateLocationMessage(`https://google.com/maps?q=${coords.latitude},${coords.longitude}`))
+        const user = GetUser(socket.id);
+        io.to(user.room).emit('locationMessage', generateLocationMessage(user,`https://google.com/maps?q=${coords.latitude},${coords.longitude}`))
         callback()
     })
 
 
     socket.on('disconnect', () => {
-        io.emit('message', generateMessage('A user has left!'))
+        const user = RemoveUser(socket.id);
+        if (user){
+            io.to(user.room).emit('message', generateMessage(user , `${user} has left !`)
+        }
+
+        
     })
 })
 
