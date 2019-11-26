@@ -35,24 +35,50 @@ const AddUser = ({id,username,room}) => {
 //RemoveUser
 
 const RemoveUser = (id) => {
-    //Find The Position of Match
-    const index = user.findIndex(() => {
-        if (index !== -1){
-            return users.splice(index,1)[0] 
-            //Romove One Item with specific Index 
-        }
-    })
+    const index = users.findIndex((user) => user.id === id)
+
+    if (index !== -1) {
+        return users.splice(index, 1)[0]
+    }
 }
 
-//GetUser
+const GetUser = (id) => {
+    return users.find((user) => user.id === id)
+}
 
-//GetUsersInRoom
+const GetUsersInRoom = (room) => {
+    room = room.trim().toLowerCase()
+    return users.filter((user) => user.room === room)
+}
 
+module.exports = {
+    GetUser,
+    GetUsersInRoom,
+    RemoveUser,
+    AddUser
+}
 
+// console.log(users)
 
+// User_1 = AddUser({id:111,
+//     username:'ibrahim ',
+//     room:'1'})
 
-test = AddUser({id:111,
-    username:'ibrahim ',
-    room:'1'})
+// User_2 = AddUser({id:11,
+//         username:'ibrahimShamma ',
+//         room:'1'})
+    
+// console.log("AddUser1: ",User_1)
+// console.log("AddUser2: ",User_2)
 
-console.log(test)
+// test_GetUser=GetUser(111)
+
+// console.log("GetUser: ",test_GetUser)
+
+// //console.log(users)
+
+// test_removeuser = RemoveUser(111)
+
+// console.log(test_removeuser )
+
+// console.log(users)
