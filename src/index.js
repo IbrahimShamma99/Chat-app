@@ -47,6 +47,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('sendLocation', (coords, callback) => {
+
         const user = GetUser(socket.id);
         io.to(user.room).emit('locationMessage', generateLocationMessage(user,`https://google.com/maps?q=${coords.latitude},${coords.longitude}`))
         callback()
@@ -56,7 +57,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         const user = RemoveUser(socket.id);
         if (user){
-            io.to(user.room).emit('message', generateMessage(user , `${user} has left !`)
+            io.to(user.room).emit('message', generateMessage(user , `${user} has left !`))
         }
 
         
