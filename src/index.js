@@ -21,10 +21,7 @@ io.on('connection', (socket) => {
         socket.join(room)      
         socket.emit('message', generateMessage('Welcome!'))
         socket.broadcast.to(room).emit('message', generateMessage(`${username} has entered the room`))
-      
     })
-
-
 
     socket.on('sendMessage', (message, callback) => {
         const filter = new Filter()
