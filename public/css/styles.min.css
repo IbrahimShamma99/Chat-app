@@ -53,21 +53,27 @@ button:disabled{
 .centered-form button{
     width:100%}
 
-.centered-form input{
+.centered-form input
+{
     margin-bottom:16px;
-    width:100%}
+    width:100%
+}
 
 .chat{
-    display:flex}
+    display:flex
+}
     
-.chat__sidebar{
+.chat__sidebar
+{
     height:100vh;
     color:rgb(220, 220, 220);
     background:#333744;
     width:225px;
-    overflow-y:scroll}
+    overflow-y:scroll
+}
 
-.chat__main{
+.chat__main
+{
     flex-grow:1;
     display:flex;
     flex-direction:column;
@@ -79,7 +85,8 @@ button:disabled{
 {
     flex-grow:1;
     padding:24px 24px 0;
-    overflow-y:scroll}
+    overflow-y:scroll
+}
 .message{
     margin-bottom:16px;
     background:rgb(230,230,230)
@@ -133,14 +140,13 @@ button:disabled{
 {
     font-weight:400;
     font-size:22px;
-    background:#2c2f3a;
+    background:#4B0082;
     padding:18px
 }
 .list-title
 {   
     font-size:22px;
     font-weight:400;
-    margin-bottom:4px;
     padding:18px;
     background:#7C5CBF;
 }
