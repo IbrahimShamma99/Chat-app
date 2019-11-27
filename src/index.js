@@ -25,15 +25,21 @@ io.on('connection', (socket) => {
         if (error) {
             return callback(error)
         }
-
-        socket.join(room)
-        socket.emit('message', generateMessage(user,'Welcome!'))
-        socket.broadcast.to(room).emit('message', generateMessage(user,`${user} has entered the room`))
-
+        
+        socket.join(user.room)
+        // TODO Server Side Just sends to the Client Room && users no messages
+        
+        socket.emit('message', generateMessage('Admin', 'Welcome!'))
+        socket.broadcast.to(user.room).emit('message', generateMessage('Admin', 
+        `${user.username} has joined!`))
+        io.to(user.room).emit('roomData', {
+            room: user.room,
+            users: GetUsersInRoom(user.room)
+        })
         callback()
     })
 
-    socket.on('sendMessage', (message, callback) => {
+    socket.on('sendMessage', (message ,callback) => {
         const user = GetUser(socket.id);   
         
         const filter = new Filter()
@@ -49,7 +55,8 @@ io.on('connection', (socket) => {
     socket.on('sendLocation', (coords, callback) => {
 
         const user = GetUser(socket.id);
-        io.to(user.room).emit('locationMessage', generateLocationMessage(user,`https://google.com/maps?q=${coords.latitude},${coords.longitude}`))
+        io.to(user.room).emit('locationMessage', generateLocationMessage(user,
+            `https://google.com/maps?q=${coords.latitude},${coords.longitude}`))
         callback()
     })
 
@@ -57,13 +64,14 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         const user = RemoveUser(socket.id);
         if (user){
-            io.to(user.room).emit('message', generateMessage(user , `${user} has left !`))
+            io.to(user.room).emit('message', generateMessage('Admin', `${user.username} has left!`))
+            io.to(user.room).emit('roomData', {
+                room: user.room,
+                users: getUsersInRoom(user.room)
+            })
         }
-
-        
     })
 })
-
 server.listen(port, () => {
     console.log(`Server is up on port ${port}!`)
 })
