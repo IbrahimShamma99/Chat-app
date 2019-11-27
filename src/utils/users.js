@@ -1,83 +1,55 @@
 const users = []
 
-//AddUser
-
-const AddUser = ({ id, username = '', room }) => {
-    // NOTE: Clear Data 
+const addUser = ({ id, username, room }) => {
+    // Clean the data
     username = username.trim().toLowerCase()
     room = room.trim().toLowerCase()
 
+    // Validate the data
     if (!username || !room) {
         return {
-            error: 'Username and room required'
+            error: 'Username and room are required!'
         }
     }
-    // TODO : Get rid of possible Duplicates
-    const existedUser = users.find((user) => {
+
+    // Check for existing user
+    const existingUser = users.find((user) => {
         return user.room === room && user.username === username
     })
-    if (existedUser) {
+
+    // Validate username
+    if (existingUser) {
         return {
-            error: "Username is in use!"
+            error: 'Username is in use!'
         }
     }
 
-    // NOTE: Store 
+    // Store user
     const user = { id, username, room }
     users.push(user)
-
-    return { user };
-}
-
-//RemoveUser
-
-const RemoveUser = (id) => {
-    const index = users.findIndex((user) => user.id === id)
-
-    if (index !== -1) {
-        user = users.splice(index, 1)[0]
-        return { user }
-    }
-}
-
-const GetUser = (id) => {
-    user = users.find((user) => user.id === id)
     return { user }
 }
 
-const GetUsersInRoom = (room) => {
+const removeUser = (id) => {
+    const index = users.findIndex((user) => user.id === id)
+
+    if (index !== -1) {
+        return users.splice(index, 1)[0]
+    }
+}
+
+const getUser = (id) => {
+    return users.find((user) => user.id === id)
+}
+
+const getUsersInRoom = (room) => {
     room = room.trim().toLowerCase()
     return users.filter((user) => user.room === room)
 }
 
 module.exports = {
-    GetUser,
-    GetUsersInRoom,
-    RemoveUser,
-    AddUser
+    addUser,
+    removeUser,
+    getUser,
+    getUsersInRoom
 }
-
-// console.log(users)
-
-// User_1 = AddUser({id:111,
-//     username:'ibrahim ',
-//     room:'1'})
-
-// User_2 = AddUser({id:11,
-//         username:'ibrahimShamma ',
-//         room:'1'})
-
-// console.log("AddUser1: ",User_1)
-// console.log("AddUser2: ",User_2)
-
-// test_GetUser=GetUser(111)
-
-// console.log("GetUser: ",test_GetUser)
-
-// //console.log(users)
-
-// test_removeuser = RemoveUser(111)
-
-// console.log(test_removeuser )
-
-// console.log(users)

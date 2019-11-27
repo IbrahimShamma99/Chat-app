@@ -103,7 +103,7 @@ button:disabled {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    max-height: 120vh;
+    max-height: 100vh;
 }
 
 .chat__messages {
