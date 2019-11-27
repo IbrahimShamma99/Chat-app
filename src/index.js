@@ -44,9 +44,8 @@ io.on('connection', (socket) => {
         if (filter.isProfane(message)) {
             return callback('Profanity is not allowed!')
         }
-
+        // NOTE Population
         io.to(user.room).emit('message', generateMessage(user.username, message))
-        //Population
         
         callback()
     })
