@@ -5,15 +5,21 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "devconf": "env-cmd config/dev.env nodemon src/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bad-words": "^3.0.0",
+    "bcrypt": "^3.0.7",
+    "bcryptjs": "^2.4.3",
+    "env-cmd": "^10.0.1",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.12",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.2.0",
+    "validator": "^12.1.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.7"

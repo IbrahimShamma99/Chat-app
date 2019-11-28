@@ -12,10 +12,11 @@ body{line-height:1.4;
     
 h1{margin-bottom:16px}
 
-label{display:block;
+label{
+    display:block;
     font-size:14px;
     margin-bottom:8px;
-    color:#777}
+    color:rgb(59, 57, 57)}
 
 input{
     border:1px solid #eee;
@@ -47,9 +48,10 @@ button:disabled{
 
 .centered-form__box{
     box-shadow:0 0 17px 1px #1D1F26;
-    background:#000000;
-    padding:24px;width:250px}
-    
+    background:rgb(230,230,230);
+    padding:24px;
+    width:280px
+}    
 .centered-form button{
     width:100%}
 
