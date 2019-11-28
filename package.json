@@ -15,9 +15,11 @@
     "bcrypt": "^3.0.7",
     "bcryptjs": "^2.4.3",
     "env-cmd": "^10.0.1",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.12",
+    "multer": "^1.4.2",
+    "sharp": "^0.23.3",
     "socket.io": "^2.2.0",
     "validator": "^12.1.0"
   },
