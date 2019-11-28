@@ -4,7 +4,15 @@
 html{
     font-size:16px}
 
-input{font-size:14px}
+input{
+    font-size:14px;
+    border-color: purple;
+    border-block-color: purple;
+    border-block-start-color: #4B0082;
+    lighting-color: #4B0082;
+    flood-color: #4B0082;
+    lighting-color: #4B0082;
+}
 
 body{line-height:1.4;
     color:#333;
@@ -22,7 +30,8 @@ input{
     border:1px solid #eee;
     padding:12px;outline:none}
 
-button{cursor:pointer;
+button{
+    cursor:pointer;
     padding:12px;
     background:#7C5CBF;
     border:none;
