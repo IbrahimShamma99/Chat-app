@@ -16,7 +16,6 @@ router.post(routes.signup, async (req , res) => {
         res.status(400).send(e)
     }
 
-
 })
 
 

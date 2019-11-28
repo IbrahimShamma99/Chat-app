@@ -16,6 +16,7 @@ const io = socketio(server)
 const publicDirectoryPath = path.join(__dirname, '../public')
 const Router = require("./routers/user") 
 
+app.use(express.json())
 
 app.use(express.static(publicDirectoryPath))
 app.use(Router)
