@@ -4,22 +4,19 @@ const express = require('express')
 const socketio = require('socket.io')
 const Filter = require('bad-words')
 require('./db/mongoose')
-
+const UserRouter = require("./routers/user") 
+const RoomRouter = require("./routers/room") 
 const { generateMessage, generateLocationMessage } = require('./utils/messages')
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./utils/users')
-
 const app = express()
 const server = http.createServer(app)
 const io = socketio(server)
-
-
 const publicDirectoryPath = path.join(__dirname, '../public')
-const Router = require("./routers/user") 
 
 app.use(express.json())
-
 app.use(express.static(publicDirectoryPath))
-app.use(Router)
+app.use(UserRouter)
+app.use(RoomRouter)
 
 io.on('connection', (socket) => {
     console.log('New WebSocket connection')

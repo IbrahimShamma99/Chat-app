@@ -1,5 +1,6 @@
 const routes = {
-    signup:"/user"
+    signup:"/user",
+    newroom:"/room"
 }
 
 module.exports = {routes}

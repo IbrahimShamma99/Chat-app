@@ -53,13 +53,17 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: Buffer,
         required:false
+    },
+    rating:{
+        type: Number,
+        required:false
     }
 }, {
     timestamps: true
 })
 
-// userSchema.virtual('tasks', {
-//     ref: 'Task',
+// userSchema.virtual('room', {
+//     ref: 'room',
 //     localField: '_id',
 //     foreignField: 'owner'
 // })

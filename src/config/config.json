@@ -1,0 +1,16 @@
+{
+	"db": {
+		"username": "<MongoDBUsername>",
+		"password": "<MongoDBPassword>",
+		"host": "<MongoDBHost>",
+		"port": "<MongoDBPort>",
+		"name": "<MongoDBName>"
+	},
+	"redis": {
+		"host": "127.0.0.1",
+		"port": 27017,
+        "password": "",
+        "appname":"Chat-app",
+        "db":"mongodb://"
+	}
+}
