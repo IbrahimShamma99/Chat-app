@@ -11,6 +11,8 @@
 		"port": 27017,
         "password": "",
         "appname":"Chat-app",
-        "db":"mongodb://"
+		"db":"mongodb://",
+		"JWT_SECRET":"Hello Node"
+
 	}
 }
