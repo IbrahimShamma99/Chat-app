@@ -1,5 +1,5 @@
-# NodeDoc
-NodeJS Documentation as js files
+# Chat-app
+Chatting using web sockets
 
 ## 1- install Node on your device 
 
