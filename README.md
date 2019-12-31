@@ -16,9 +16,21 @@ NodeJS Documentation as js files
 
 git clone https://github.com/IbrahimShamma99/Chat-app.git
 
-## 3- Run specific file 
+## NOTE to Run specific file using node
 to run a js file using node you need to 
 A-open the terminal where the file located 
 B- run this "node filename.js"
+
+## 3- To run the app you need to write this command 
+
+"npm run dev"
+
+For configuring environment all you need is to run 
+
+"npm run devconf"
+
+For configuring Tests
+
+"npm run test"
 
 ## HAPPY CODING
