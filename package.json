@@ -16,7 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "bad-words": "^3.0.0",
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "env-cmd": "^10.0.1",
     "express": "^4.17.1",
